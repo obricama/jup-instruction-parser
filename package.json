@@ -10,6 +10,7 @@
   ],
   "scripts": {
     "start": "ts-node src/cli.ts",
+    "analyze": "ts-node src/analyze.ts",
     "build": "tsup"
   },
   "author": "",

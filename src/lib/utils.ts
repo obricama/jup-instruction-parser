@@ -2,6 +2,7 @@ import Decimal from "decimal.js";
 import got from "got";
 import { BN } from "@coral-xyz/anchor";
 import { TokenInfo } from "@solana/spl-token-registry";
+import { NATIVE_MINT } from "@solana/spl-token";
 
 // Caches for Price API
 const jupiterPrices: Map<string, any> = new Map();
@@ -11,6 +12,16 @@ const jupiterTTL: Map<string, number> = new Map();
 export async function getPriceInUSDByMint(
   tokenMint: string
 ): Promise<Decimal | undefined> {
+  if (tokenMint === NATIVE_MINT.toString()) {
+    return new Decimal(240);
+  }
+  else if (tokenMint === 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v') {
+    return new Decimal(1);
+  }
+  else {
+    // only care about SOL & USDC for now
+    return new Decimal(0);
+  }
   try {
     let price = jupiterPrices.get(tokenMint);
     let ttl = jupiterTTL.get(tokenMint);
